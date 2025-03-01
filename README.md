@@ -19,29 +19,42 @@
 3. Environment Variables
 	>Set up proper environment variables for Google API credentials:
 		・ GOOGLE_CLIENT_ID
+ >
 		・ GOOGLE_CLIENT_SECRET
+>
 		・ GOOGLE_REDIRECT_URL
+  
 
 4. Real Implementation of Backend Functions
 	・ The app.js file contains several placeholder functions that need real implementations:
 		・ Real osu! API integration for downloading beatmaps
+
 		・ Actual beatmap parsing and rendering
+
 		・ Real video encoding with FFmpeg
+
 		
-5. Secure Key Storage
+6. Secure Key Storage
 	> Your Google API keys are exposed in the client-side code. In a productive environment you should:
 		> Move client-side API keys to environment variables
+ > 
 		> Implement proper key rotation and security measures
+> 
 		
-6. Error Handling
+7. Error Handling
 	・ More comprehensive error handling, especially for:
 		・ Network failures
+
 		・ Invalid file formats
+
 		・ API rate limiting
+
 		・ File size limitations
 		
-7. File System Management
+9. File System Management
 	・ Implement proper cleanup procedures for temporary files
+
 	・ Add additional storage management for large video files
+
 
 I have no idea what I am doing so be aware of anything that you might encounter (or might not)!
