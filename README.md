@@ -18,6 +18,7 @@
 
 
 2. Environment Variables
+   
 	・ Set up proper environment variables for Google API credentials:
 
 		・ GOOGLE_CLIENT_ID
