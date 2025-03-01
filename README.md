@@ -2,6 +2,7 @@
 
 # What I have so far:
  Keep in mind that this is NOT finished. 
+ 
  PS: I probably won't finish this unless someone helps (I barely know HTML and CSS and have no idea how JS works).
  Here: https://storied-travesseiro-7d1f29.netlify.app
 
