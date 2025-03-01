@@ -16,16 +16,16 @@
 		・ Google Drive authentication UI elements
 
 
-3. Environment Variables
-	>Set up proper environment variables for Google API credentials:
+2. Environment Variables
+	・ Set up proper environment variables for Google API credentials:
 		・ GOOGLE_CLIENT_ID
- >
+ 
 		・ GOOGLE_CLIENT_SECRET
->
+
 		・ GOOGLE_REDIRECT_URL
   
 
-4. Real Implementation of Backend Functions
+3. Real Implementation of Backend Functions
 	・ The app.js file contains several placeholder functions that need real implementations:
 		・ Real osu! API integration for downloading beatmaps
 
@@ -34,15 +34,19 @@
 		・ Real video encoding with FFmpeg
 
 		
-6. Secure Key Storage
-	> Your Google API keys are exposed in the client-side code. In a productive environment you should:
-		> Move client-side API keys to environment variables
- > 
+4. Secure Key Storage
+	Your Google API keys are exposed in the client-side code. In a productive environment you should:
+
+	Move client-side API keys to environment variables
+ 
 		> Implement proper key rotation and security measures
-> 
+
 		
-7. Error Handling
+5. Error Handling
+
 	・ More comprehensive error handling, especially for:
+
+
 		・ Network failures
 
 		・ Invalid file formats
@@ -51,7 +55,7 @@
 
 		・ File size limitations
 		
-9. File System Management
+6. File System Management
 	・ Implement proper cleanup procedures for temporary files
 
 	・ Add additional storage management for large video files
