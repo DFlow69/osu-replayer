@@ -1,5 +1,14 @@
 # osu-replayer
 
+The script.js file is now complete with all the necessary frontend functionality to handle:
+
+User authentication with Google
+File uploads (both replay and beatmap files)
+Conversion process tracking
+Result display and downloading
+Google Drive integration
+UI state management
+
 # What I have so far:
  Keep in mind that this is NOT finished. 
  
