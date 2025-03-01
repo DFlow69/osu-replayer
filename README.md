@@ -4,11 +4,17 @@
 1. HTML Frontend
 	We need an HTML file with all UI elements referenced in the JavaScript including:
 		・ Tab buttons and convert content containers
+
 		・ Input fields for replay and beatmap files
+
 		・ Dropdowns for video quality, storyboard, cursor options
+
 		・ Progress bars and status displays
+
 		・ Result containers with video previews and download links
+
 		・ Google Drive authentication UI elements
+
 
 3. Environment Variables
 	>Set up proper environment variables for Google API credentials:
