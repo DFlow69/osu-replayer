@@ -56,6 +56,7 @@
 		・ File size limitations
 		
 6. File System Management
+
 	・ Implement proper cleanup procedures for temporary files
 
 	・ Add additional storage management for large video files
