@@ -2,7 +2,7 @@
 
 The script.js file is now complete with all the necessary frontend functionality to handle:
 
-User authentication with Google
+User authentication with Google (It's supposed to work but the button doesnt work. Honestly I don't know if I've done anything wrong in the OAuth claud).
 
 File uploads (both replay and beatmap files)
 
@@ -16,6 +16,8 @@ UI state management
 
 # What I have so far:
  Keep in mind that this is NOT finished. 
+
+ Storage INFO (IMPORTANT): I tried to make Google Drive as the temporary storage for the video file saving/storage.
  
  PS: I probably won't finish this unless someone helps (I barely know HTML and CSS and have no idea how JS works).
  
