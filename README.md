@@ -3,6 +3,7 @@
 # What's missing (need to be implemented):
 1. HTML Frontend
 	We need an HTML file with all UI elements referenced in the JavaScript including:
+
 		・ Tab buttons and convert content containers
 
 		・ Input fields for replay and beatmap files
@@ -18,6 +19,7 @@
 
 2. Environment Variables
 	・ Set up proper environment variables for Google API credentials:
+
 		・ GOOGLE_CLIENT_ID
  
 		・ GOOGLE_CLIENT_SECRET
@@ -26,7 +28,9 @@
   
 
 3. Real Implementation of Backend Functions
-	・ The app.js file contains several placeholder functions that need real implementations:
+ 
+	 The app.js file contains several placeholder functions that need real implementations:
+
 		・ Real osu! API integration for downloading beatmaps
 
 		・ Actual beatmap parsing and rendering
@@ -35,9 +39,10 @@
 
 		
 4. Secure Key Storage
+ 
 	Your Google API keys are exposed in the client-side code. In a productive environment you should:
 
-	Move client-side API keys to environment variables
+		> Move client-side API keys to environment variables
  
 		> Implement proper key rotation and security measures
 
