@@ -1,9 +1,274 @@
-<DOCKTYPE! html>
-  <html>
-    <head>
-      
-    </head>
-    <body>
-      
-    </body>
-  </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>osu! Replay to Video Converter</title>
+
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>osu! Replay to Video Converter</h1>
+            <p>Convert your osu! replay files to videos for sharing or analysis</p>
+        </header>
+        
+        <div class="google-auth-section" id="google-auth-section">
+            <p>Connect to Google Drive to store your converted videos:</p>
+            <button id="authorize-button" class="google-btn">
+                <img src="https://icon2.cleanpng.com/20191001/fxp/transparent-circle-logo-font-symbol-icon-1713870682439.webp" alt="Google logo">
+                Sign in with Google
+            </button>
+            <div class="logged-in-status" id="logged-in-status">
+                Connected to Google Drive as <span id="user-email"></span>
+                <button id="signout-button" class="button" style="margin-left: 10px; padding: 5px 10px; font-size: 0.8rem;">Sign Out</button>
+            </div>
+        </div>
+        
+        <div class="converter-tabs">
+            <button class="tab-button active" onclick="switchTab(0)">Online Beatmap</button>
+            <button class="tab-button" onclick="switchTab(1)">Upload Files</button>
+        </div>
+        
+        <div class="converter-content active" id="online-beatmap">
+            <form id="online-form">
+                <div class="form-group">
+                    <label for="beatmap-id">Beatmap ID or URL:</label>
+                    <input type="text" id="beatmap-id" placeholder="e.g., 252238 or https://osu.ppy.sh/beatmapsets/96399#osu/252238" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="replay-file-online">Replay File (.osr):</label>
+                    <div class="file-upload">
+                        <div class="file-input-container">
+                            <div class="file-input-button">Choose Replay File</div>
+                            <input type="file" id="replay-file-online" class="file-input" accept=".osr" required>
+                        </div>
+                        <div class="file-name" id="replay-name-online">No file chosen</div>
+                    </div>
+                </div>
+                
+                <button type="button" class="button" id="convert-online-btn" onclick="startConversionOnline()">Convert to Video</button>
+            </form>
+            
+            <div class="options-section">
+                <h3>Video Options</h3>
+                <div class="option-row">
+                    <span class="option-label">Video Quality:</span>
+                    <select id="video-quality-online">
+                        <option value="720p">720p (HD)</option>
+                        <option value="1080p">1080p (Full HD)</option>
+                        <option value="480p">480p (SD)</option>
+                    </select>
+                </div>
+                <div class="option-row">
+                    <span class="option-label">Include Storyboard:</span>
+                    <select id="storyboard-online">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div class="option-row">
+                    <span class="option-label">Show Cursor:</span>
+                    <select id="cursor-online">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div class="option-row">
+                    <span class="option-label">Save to Google Drive:</span>
+                    <select id="save-drive-online">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="progress-container" id="progress-container-online">
+                <h3>Converting...</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill-online"></div>
+                </div>
+                <div class="progress-status" id="progress-status-online">Downloading beatmap...</div>
+            </div>
+            
+            <div class="error-message" id="error-message-online"></div>
+            
+            <div class="result-section" id="result-section-online">
+                <h3>Conversion Complete!</h3>
+                
+                <div class="thumbnail-container">
+                    <img id="thumbnail-online" src="/api/placeholder/400/320" alt="Video thumbnail">
+                    <div class="play-icon">
+                        <div class="play-icon-inner"></div>
+                    </div>
+                </div>
+                
+                <div class="video-details">
+                    <div class="detail-row">
+                        <span class="detail-label">File size:</span>
+                        <span id="file-size-online">24.7 MB</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Duration:</span>
+                        <span id="duration-online">3:42</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Resolution:</span>
+                        <span id="resolution-online">1280×720 (HD)</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Conversion ID:</span>
+                        <span id="conversion-id-online">OSU-28F59A7B</span>
+                    </div>
+                    <div class="detail-row" id="drive-link-row-online" style="display:none;">
+                        <span class="detail-label">Google Drive:</span>
+                        <a href="#" id="drive-link-online" target="_blank">View in Drive</a>
+                    </div>
+                </div>
+                
+                <a href="#" class="download-button" id="download-button-online" onclick="downloadVideo('online')">Download Video</a>
+                
+                <div class="file-age-warning" id="file-age-warning-online">
+                    Note: This file will be automatically deleted from our servers after 24 hours.
+                </div>
+            </div>
+        </div>
+        
+        <div class="converter-content" id="upload-files">
+            <form id="upload-form">
+                <div class="form-group">
+                    <label for="beatmap-file">Beatmap File (.osz or extracted folder):</label>
+                    <div class="file-upload">
+                        <div class="file-input-container">
+                            <div class="file-input-button">Choose Beatmap File/Folder</div>
+                            <input type="file" id="beatmap-file" class="file-input" accept=".osz,.zip" required>
+                        </div>
+                        <div class="file-name" id="beatmap-name">No file chosen</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="replay-file-upload">Replay File (.osr):</label>
+                    <div class="file-upload">
+                        <div class="file-input-container">
+                            <div class="file-input-button">Choose Replay File</div>
+                            <input type="file" id="replay-file-upload" class="file-input" accept=".osr" required>
+                        </div>
+                        <div class="file-name" id="replay-name-upload">No file chosen</div>
+                    </div>
+                </div>
+                
+                <button type="button" class="button" id="convert-upload-btn" onclick="startConversionUpload()">Convert to Video</button>
+            </form>
+            
+            <div class="options-section">
+                <h3>Video Options</h3>
+                <div class="option-row">
+                    <span class="option-label">Video Quality:</span>
+                    <select id="video-quality-upload">
+                        <option value="720p">720p (HD)</option>
+                        <option value="1080p">1080p (Full HD)</option>
+                        <option value="480p">480p (SD)</option>
+                    </select>
+                </div>
+                <div class="option-row">
+                    <span class="option-label">Include Storyboard:</span>
+                    <select id="storyboard-upload">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div class="option-row">
+                    <span class="option-label">Show Cursor:</span>
+                    <select id="cursor-upload">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div class="option-row">
+                    <span class="option-label">Save to Google Drive:</span>
+                    <select id="save-drive-upload">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="progress-container" id="progress-container-upload">
+                <h3>Converting...</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill-upload"></div>
+                </div>
+                <div class="progress-status" id="progress-status-upload">Processing files...</div>
+            </div>
+            
+            <div class="error-message" id="error-message-upload"></div>
+            
+            <div class="result-section" id="result-section-upload">
+                <h3>Conversion Complete!</h3>
+                
+                <div class="thumbnail-container">
+                    <img id="thumbnail-upload" src="/api/placeholder/400/320" alt="Video thumbnail">
+                    <div class="play-icon">
+                        <div class="play-icon-inner"></div>
+                    </div>
+                </div>
+                
+                <div class="video-details">
+                    <div class="detail-row">
+                        <span class="detail-label">File size:</span>
+                        <span id="file-size-upload">28.3 MB</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Duration:</span>
+                        <span id="duration-upload">4:17</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Resolution:</span>
+                        <span id="resolution-upload">1280×720 (HD)</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Conversion ID:</span>
+                        <span id="conversion-id-upload">OSU-3A71F82C</span>
+                    </div>
+                    <div class="detail-row" id="drive-link-row-upload" style="display:none;">
+                        <span class="detail-label">Google Drive:</span>
+                        <a href="#" id="drive-link-upload" target="_blank">View in Drive</a>
+                    </div>
+                </div>
+                
+                <a href="#" class="download-button" id="download-button-upload" onclick="downloadVideo('upload')">Download Video</a>
+                
+                <div class="file-age-warning" id="file-age-warning-upload">
+                    Note: This file will be automatically deleted from our servers after 24 hours.
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <div class="info-title">How it works</div>
+            <p>This tool converts osu! replay files (.osr) to video by:</p>
+            <ol>
+                <li>Extracting replay data from the .osr file</li>
+                <li>Obtaining the beatmap data (either from online or uploaded file)</li>
+                <li>Rendering the gameplay based on the replay movements</li>
+                <li>Generating a video file that you can download and share</li>
+                <li>Optionally saving directly to your Google Drive for easy access</li>
+            </ol>
+            <p>The process may take a few minutes depending on the length of the song and selected options.</p>
+        </div>
+        
+        <div class="server-status">
+            <div class="status-indicator"></div>
+            <span id="server-status-text">Server status: Online (3 jobs in queue)</span>
+        </div>
+    </div>
+    
+    <!-- Google API Script -->
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
+
+</body>
+</html>
