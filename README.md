@@ -1,4 +1,4 @@
-# osu-replayer (DOES NOT WORK YEY)
+# osu-replayer (DOES NOT WORK YET)
 
 The script.js file is now complete with all the necessary frontend functionality to handle:
 
